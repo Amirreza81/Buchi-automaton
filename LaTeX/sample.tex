@@ -1,0 +1,589 @@
+\documentclass[17pt, t, lualatex]{beamer}
+
+\title{$\omega$-Automata, B$\ddot{u}$chi and Generalized B$\ddot{u}$chi Automata}
+\date{Spring 2024}
+\institute[SUT]{Sharif University of Technology}
+\author{AmirReza Azari}
+
+\usepackage{amsmath,amssymb,mathtools}
+
+% Probably load as late as possible
+% Other options are
+% - engine=pdflatex to compile in pdfLaTeX (with different fonts),
+% - mathshape=rm to use serif font for math,
+% - mathsahpe=custom to not set any math font (so that you can define your own math fonts)
+\usetheme[engine=lualatex, mathshape=sf, fontdir=kthpq-files/fonts/Figtree/]{kthpq}
+\setmonofont{Bitstream Vera Sans Mono}[Scale=.9]
+
+% Custom colors (see beamercolorthemecustom.sty for more details)
+%\usecolortheme{custom}
+
+% Custom footline
+%\setfootline{left}{center}{right}
+
+\begin{document}
+
+\inserttitlepage
+
+\section{$Omega\;\; Languages$}
+
+\insertsectionpage
+
+\begin{frame}{$\omega$-Automata}
+\begin{block}{Definition:}
+\begin{itemize}
+    \item
+    Automata that accept (or reject) words of 
+infinite length.
+    \item 
+    Languages of infinite words appear:
+    \begin{itemize}
+        \item
+        In verification, as encodings of non-terminating 
+executions of a program.
+        \item 
+        In arithmetic, as encodings of sets of real 
+numbers.
+    \end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular Languages}
+\begin{block}{Definition:}
+\begin{itemize}
+    \item Infinite words over the alphabet $\Sigma$ are infinite sequences $A_0, A_1, A_2, \ldots$ of symbols $A_i \in \Sigma$.
+    \item $\Sigma^{\omega}$ denotes the set of all infinite words over $\Sigma$.
+    \item Any subset of $\Sigma^{\omega}$ is called a language of infinite words, called an $\omega$-language.
+    \item For instance, the infinite repetition of the finite word AB yields
+    the infinite word $ABABABABAB\ldots$ (ad infinitum) and is denoted by $(AB)^{\omega}$.
+    \item For the special case of the empty word, we have $\varepsilon^{\omega} = \varepsilon$. 
+    \item 
+    For an infinite word, infinite repetition has no effect, that is $\sigma^{\omega} = \sigma$ if $\sigma \in \Sigma^{\omega}$.
+
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular Expression}
+\begin{block}{Definition:}
+\begin{itemize}
+    \item
+    An $\omega$-regular expression G over the alphabet $\Sigma$ has the form:
+    \begin{center}
+        $G = E_1.F_1^{\omega} + \ldots + E_n.F_n^{\omega}$
+    \end{center}
+    where $n \geq 1$ and $E_1,\ldots,E_n,F_1,\ldots,F_n$ are regular expressions over $\Sigma$ such that $\varepsilon \notin \pazocal{L}(F_i)$, for all $1 \leq i \leq n$.
+    \item 
+    If $\pazocal{L}(E) \subseteq \Sigma^*$ denotes the language (of finite words) induced by the regular expression E: 
+    \begin{center}
+        $\pazocal{L}_{\omega}(G) = \pazocal{L}(E_1).\pazocal{L}(F_1)^{\omega} \smallcup \ldots \smallcup \pazocal{L}(E_n).\pazocal{L}(F_n)^{\omega}$
+    \end{center}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular Expression}
+\begin{block}{Definition (cont.)}
+\begin{itemize}
+    \item 
+    Example for $\omega$-regular expressions over the alphabet 
+    $\Sigma = \{A,B,C\}:$\\[0.4in]
+    \begin{center}
+        $(A+B)^*A(AAB+C)^{\omega}$ \\[0.15in]
+        or\\[0.15in]
+        $A(B+C)^*A^{\omega} + B(A+C)^{\omega}$
+    \end{center}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular Expression}
+\begin{block}{Example:}
+\begin{itemize}
+    \item[1.]
+    A word in $aa\Sigma^*aa$ followed by only $b$ $\rightarrow$ 
+    $aa\Sigma^*aa.b^{\omega}$
+    \begin{center}
+        $\{aaaabbbb\ldots\},\; \{aabbbbaaabbbb\ldots\}$
+    \end{center}
+    \item[2.]
+    Infinite words where b occurs only finitely often $\rightarrow$ $(a+b)^*.b^{\omega}$
+    \begin{center}
+        $\{aaaa\ldots\},\; \{babbaaaa\ldots\}$
+    \end{center}
+    \item[3.]
+    Infinite words where b occurs infinitely often $\rightarrow$
+    $(a^*b)^{\omega}$
+    \begin{center}
+        $\{abababab\ldots\},\;\{bbbabbbabbbabbba\ldots\},\;
+        \{bbbbbbbbbbbbb\ldots\}$
+    \end{center}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular Expression}
+\begin{block}{More Examples:}
+\begin{itemize}
+    \item[1.]
+     $(a + b)^{\omega}$ set of all infinite words.
+     \item[2.]
+     $a(a + b)^{\omega}$ infinite words starting with an a
+     \item[3.]
+      $(a + bc + c)^{\omega}$ words where every b is immediately followed by c
+      \item[4.]
+      $((a + b)^*c)^{\omega}$ words where c occurs infinitely often
+      \item[5.]
+      $(a + b)^*c(a + b)^{\omega}$ words with a single occurrence of c
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Regular Languages}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.6]{1.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular Languages}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.6]{2.png}
+    \end{figure}
+\end{frame}
+
+\section{$B\ddot{u}chi\;\; Automata$}
+
+\insertsectionpage
+
+\begin{frame}{$Run\;and\;acceptance$}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.85]{4.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{$Run\;and\;acceptance$}
+\begin{block}{Run is accepting if some accepting state occurs infinitely often}
+Below word is not accepted by this automaton.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.85]{5.png}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{$Non-deterministic\; B\ddot{u}chi\; Automata$}
+\begin{block}{Definition. Non-deterministic B$\ddot{u}$chi Automata (NBA)}
+A Non-deterministic B$\ddot{u}$chi automaton $\pazocal{A}$ is a tuple $\pazocal{A} = (Q, \Sigma, \delta, Q_0, F)$ where:
+\begin{itemize}
+    \item Q is a finite states,
+    \item $\Sigma$ is an alphabet,
+    \item $\delta$: $Q \times \Sigma \rightarrow 2^Q$ is a transition function,
+    \item $Q_0 \subseteq Q$ is a set of initial states 
+    \item $F \subseteq Q$ is a set of accept states, called acceptance set.
+    
+\end{itemize}
+A language $L \subseteq \Sigma^{\omega}$ is $\omega$-regular if it can be accepted by some B$\ddot{u}$chi automaton.
+\end{block}
+\end{frame}
+
+\begin{frame}{$Non-deterministic\; B\ddot{u}chi\; Automata$}
+\begin{block}{Definition (cont.)}
+\begin{figure}
+    \centering
+    \includegraphics[scale=1.1]{6.png}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{NFA vs. NBA}
+\begin{itemize}
+    \item Syntax differences between NFA and NBA : None\\
+    
+    \item Semantics differences between NFA and NBA: the accepted 
+language of an NFA A is a language of finite words, whereas the 
+accepted language of NBA A is an $\omega$-language. \\
+
+The intuitive meaning of the acceptance criterion named after Buchi is that the accept set of A has to be visited infinitely often. Thus, the accepted language L$\omega$(A) consists of all infinite words that have a run in which some accept state is visited infinitely often.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{NBA}
+\begin{block}{Example}
+    $a^{\omega} + b^{\omega}:$
+    \begin{figure}
+        \centering
+        \includegraphics{7.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{NBA}
+\begin{block}{Example}
+    $aa(a+b)^*ab^{\omega}:$
+    \begin{figure}
+        \centering
+        \includegraphics{8.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{NBA - $\omega$-operator}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.8]{9.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{NBA - Concatenation}
+A language $L_1$ can be concatenated with an $\omega$-language $L_2$ to 
+yield the $\omega$-language $L_1L_2$, but two $\omega$-languages cannot be concatenated.
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.5]{10.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{NBA - Union}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.65]{11.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{NBA to $\omega$-regular expression}
+\begin{block}{Lemma.}
+ Let $A$ be a NFA, and let $q,\;q'$
+be states of $A$.\\
+The language $L_q^{q'}$ of words with runs leading from $q$ to $q'$ and visiting $q'$ exactly once after leaving $q$ is regular.
+\begin{itemize}
+    \item Let $r_q^{q'}$ denote a regular expression for $L_q^{q'}$.
+    \item Given a NBA $A$, we look at it as a NFA, and compute regular expressions $r_q^{q'}$.
+    \item We show:
+    \begin{center}
+        $L_{\omega}(A)=L\left(\sum_{q\in F} r_{q_0}^q (r_q^q)^{\omega}\right)$
+    \end{center}
+\end{itemize}
+\end{block}    
+\end{frame}
+
+\begin{frame}{NBA to $\omega$-regular expression}
+\begin{block}{Example:}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.5]{12.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{Constructing a NBA from a NFA}
+    \begin{figure}
+        \centering
+        \includegraphics{13.png}
+        \includegraphics{14.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Constructing a NBA from a NFA}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1]{15.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Constructing a NBA from a NFA}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1]{16.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{$Deterministic\; B\ddot{u}chi\; Automata$}
+\begin{block}{Definition:}
+    \begin{itemize}
+        \item Single initial state
+        \item From every state - on an alphabet, there is a unique transition
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.7]{17.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{DBA}
+\begin{block}{Question: Can every NBA be converted to an equivalent
+DBA?}
+\begin{figure}
+    \centering
+    \includegraphics{18}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{DBA}
+\begin{block}{DBA less powerful than NBA}
+    \begin{itemize}
+        \item Automaton has to guess the point from where only b occurs
+        \item A deterministic B$\ddot{u}$chi automaton cannot make this guess
+        \item The above language cannot be accepted by a DBA.
+    \end{itemize}
+    \begin{block}{Proof.}
+         By contradiction. Assume some DBA recognizes $(a+b)^*b^{\omega}$.
+    \end{block}
+\end{block}   
+\end{frame}
+
+\begin{frame}{DBA}
+\begin{block}{Proof (cont.)}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.7]{19.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{$\omega$-Regular languages}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{3.png}
+\end{figure}
+\end{frame}
+
+
+\section{$Generalized\; B\ddot{u}chi\; Automata$}
+
+\insertsectionpage
+
+\begin{frame}{GBA}
+\begin{block}{Definition.}
+\begin{itemize}
+    \item Generalized B$\ddot{u}$chi automaton (GBA) is a variant of B$\ddot{u}$chi automaton
+    \item The difference with the B$\ddot{u}$chi automaton is its accepting
+    condition, i.e., a set of sets of states.
+    \item A run is accepted by the automaton if it visits at least one state of
+    every set of the accepting condition infinitely often.
+    \item  Generalized B$\ddot{u}$chi automata (GBA) is equivalent in expressive power with B$\ddot{u}$chi automata
+
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{GBA}
+\begin{block}{Definition (cont.)}
+\begin{itemize}
+    \item 
+    A generalized Buchi automaton (GBA) over $\Sigma$ is:
+    \begin{center}
+        $A = (Q, \Sigma, \delta, I, F)$
+    \end{center}
+    \item Q is a finite set of states
+    \item $\Sigma = \{a, b, \ldots\}$ is a finite alphabet set of A
+    \item $\delta \subseteq Q \times \Sigma \times Q$ is a transition relation
+    \item $I \subseteq Q$ is a set of initial states
+    \item $F = \{F_1,\ldots,F_k\} \subseteq 2^Q$ is a set of sets of final states.
+     
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{GBA}
+\begin{block}{Definition (cont.)}
+    \begin{itemize}
+        \item A accepts exactly those runs in which the set of infinitely often occurring states contains at least a state from each $F_1,\ldots,F_n$.
+        \item A run $\sigma$ of a GBA is said to e accepting iff,
+        \begin{center}
+            for all $1\leq i \leq k$, we have inf($\sigma$) $\cap\;$ F$_i$ $\neq \emptyset$.
+        \end{center}
+    \end{itemize}
+    \begin{block}{inf($\sigma$)}
+        The set of states visited infinitely often by a run $\sigma$ is denoted inf($\sigma$).
+    \end{block}
+\end{block}
+\end{frame}
+
+\begin{frame}{GBA}
+\begin{block}{(inf($\sigma$) (cont.))}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.8]{20.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{NBA $\&$ GNBA}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.8]{21.png}
+        \includegraphics[scale=0.8]{22.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{NBA $\&$ GNBA}
+    A GNBA for the property ”both processes are infinitely often in their critical section”:
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1]{23.png}
+    \end{figure}
+    \begin{itemize}
+        \item GNBA are like NBA, but have a distinct acceptance criterio. A GNBA requires to visit several sets $F_1, \ldots, F_k (k \geq 0)$ infinitely often.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1]{24.png}
+        \includegraphics[scale=0.95]{25.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+\begin{block}{Algorithm:}
+    \begin{itemize}
+        \item Turn a generalized B$\ddot{u}$chi automaton into a B$\ddot{u}$chi automaton.
+        \item The idea:
+        \begin{itemize}
+            \item Each cycle must go through every copy.
+            \item Each cycle must contain accepting states from each accepting set.
+        \end{itemize}
+        \item Algorithm:
+        \begin{itemize}
+            \item Duplicate the GBA to as many copies as the number of accepting sets
+            \item Redirect outgoing edges from accepting states to the next copy.
+        \end{itemize}
+    \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+\begin{block}{Example:}
+    \begin{figure}[ht]
+        \subcaptionbox*{1,2 correspond to $F_1$ and $F_2$, the accepting sets}[.45\linewidth]{%
+        \includegraphics[scale=0.5]{26.png}%
+    }%
+    \hfill
+        \subcaptionbox*{Two copies, because we have two accepting sets}[.45\linewidth]{%
+        \includegraphics[scale=0.5]{27.png}%
+    }
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+\begin{block}{Example (cont.):}
+    \begin{figure}[ht]
+        \subcaptionbox*{Choose one cope as initial and redirect edges from accepting edges}[.45\linewidth]{%
+        \includegraphics[scale=0.5]{28.png}%
+    }%
+    \hfill
+        \subcaptionbox*{remove unreachable states}[.45\linewidth]{%
+        \includegraphics[scale=0.5]{29.png}%
+    }
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+\begin{block}{Another Example:}
+    \begin{figure}[ht]
+        \subcaptionbox*{A GBA}[.45\linewidth]{%
+        \includegraphics[scale=0.7]{30.png}%
+    }%
+    \hfill
+        \subcaptionbox*{One copy for each accepting set}[.45\linewidth]{%
+        \includegraphics[scale=0.6]{31.png}%
+    }
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+\begin{block}{Another Example (cont.):}
+    \begin{figure}[ht]
+        \subcaptionbox*{Redirecting edges}[.45\linewidth]{%
+        \includegraphics[scale=0.6]{32.png}%
+    }%
+    \hfill
+        \subcaptionbox*{and so forth...}[.45\linewidth]{%
+        \includegraphics[scale=0.6]{33.png}%
+    }
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}{De-generalization of GBA}
+\begin{block}{Another Example (cont.):}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1]{34.png}
+    \end{figure}
+\end{block}
+\end{frame}
+
+\section{$Review$}
+
+\insertsectionpage
+
+\begin{frame}{$\omega$-automata}
+    \begin{figure}[ht]
+        \subcaptionbox*{}[.45\linewidth]{%
+        \includegraphics[scale=1.1]{r1.png}%
+    }%
+    \hfill
+        \subcaptionbox*{}[.45\linewidth]{%
+        \includegraphics[scale=1]{r2.png}%
+    }
+\end{figure}
+\end{frame}
+
+\begin{frame}{B$\ddot{u}$chi Automata}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1.5]{r3.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{B$\ddot{u}$chi Automata}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1.5]{r4.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Generalized B$\ddot{u}$chi Automata}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1.5]{r5.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Generalized B$\ddot{u}$chi Automata}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1.5]{r6.png}
+    \end{figure}
+\end{frame}
+
+\section{$References$}
+
+\insertsectionpage
+
+\begin{frame}{}
+    
+\begin{itemize}
+    \item https://www.cmi.ac.in/~kumar/words/lecture07.pdf
+    \item https://www.cs.colostate.edu/~france/CS614/Slides/ModelCheckingChapter4.pdf
+    \item https://www.youtube.com/watch?v=KOu6IUssxbs
+    \item https://www.lrde.epita.fr/~sadegh/buchi-complementation-techrep.pdf
+    \item https://www.irif.fr/~jep/PDF/InfiniteWords/Chapter1.pdf
+\end{itemize}
+
+\end{frame}
+
+\insertendpage
+
+\end{document}
